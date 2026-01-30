@@ -30,6 +30,12 @@ See here for a good guide: https://diyrobocars.com/2020/05/04/arduino-serial-plo
 
 ### Arduino CLI
 #### Installation
+
+##### Notes for Windows
+  (Windows): https://docs.arduino.cc/arduino-cli/installation/
+  (don't forget to add to Path)
+
+
 ```sh
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 sudo mv bin/arduino-cli /usr/local/bin/arduino-cli
