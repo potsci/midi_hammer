@@ -94,6 +94,12 @@ arduino-cli lib install --git-url https://github.com/kroimon/Arduino-SerialComma
 arduino-cli lib install "CSV Parser"
 ```
 
+### Important notes (potsci 31.01.2026)
+- The src folder seems to need to be moved to the arduino libaries folder which for me very weirdly is at C:\Users\<USERNAME>\OneDrive\Dokumente\Arduino\libraries
+- Missing detected libraries:
+  - 
+
+
 #### Compilation
 Can specify build properties, but it seems some of these can be appended to the end of the FQBN all of which can be viewed with:
 ```sh

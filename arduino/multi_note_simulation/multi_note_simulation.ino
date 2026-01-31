@@ -1,4 +1,4 @@
-#include "../src/config.h"
+#include "config.h"
 
 // elapsedMillis: https://github.com/pfeerick/elapsedMillis
 #include <elapsedMillis.h>
@@ -9,8 +9,7 @@
 #include "KeyHammer.h"
 #include "Pedal.h"
 #include "DualAdcManager.h"
-#include <ParamHandler.h>
-
+// #include "ParamHandler.h"
 // board specific imports and midi setup
 #ifdef PICO
 // pico version uses Earle Philhower's Raspberry Pico Arduino core:
