@@ -4,7 +4,7 @@
 // either PICO, TEENSY
 // #define TEENSY- The src folder seems to need to be moved to the arduino libaries folder which for me very weirdly is at
 // #define PICO
-
+#define UNO
 // number of values to store in buffers
 // e.g. for the ADC buffer
 // with 8 keys, 3 int buffers, 1 float buffer, this fails above 3000 (not enough ram1)
