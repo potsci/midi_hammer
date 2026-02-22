@@ -70,7 +70,7 @@ bool ParamHandler::initialize(int n_keys)
                 for (int row = 0; row < rowCount; row++)
                 {
                     int keyIndex = keyIndices[row];
-                    Serial.print("Key %d: KeyDown: %d, KeyUp: %d\n", keyIndex, csvKeyDownValues[row], csvKeyUpValues[row]);
+                    // Serial.print("Key %d: KeyDown: %d, KeyUp: %d\n", keyIndex, csvKeyDownValues[row], csvKeyUpValues[row]);
 
                     // Only store values if index is within bounds
                     if (keyIndex >= 0 && keyIndex < numKeys)

@@ -2,6 +2,7 @@
 #include <Arduino.h>
 
 // Constructor
+#ifndef UNO
 DualAdcManager::DualAdcManager()
 {
     _adcNeedsUpdate = true;
@@ -9,10 +10,8 @@ DualAdcManager::DualAdcManager()
 #ifdef TEENSY
     _adc = NULL;
 #endif
-    // #ifdef UNO
-    //     _adc = NULL;
-    // #endif
 }
+// not sure wheter this is a good way to handle this ...
 
 // Initialize the ADC manager with specific pins
 void DualAdcManager::begin(int addressPins0[], int addressPins1[],
@@ -172,3 +171,4 @@ int DualAdcManager::readDualGetAdcValue1(
 //             int settleDelayUS))() {
 // implementation
 // }
+#endif

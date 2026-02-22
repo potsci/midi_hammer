@@ -278,7 +278,7 @@ void KeyHammer::checkNoteOff()
       midiSender->sendNoteOff(pitch, 64, 2);
       if (printMode == PRINT_NOTES)
       {
-        Serial.printf("OFF-%d: adcValue %d, keySpeed_bits_us %f, keySpeed_m_s \n", pitch, keySpeed, convert_bits_us2m_s(keySpeed));
+        // Serial.printf("OFF-%d: adcValue %d, keySpeed_bits_us %f, keySpeed_m_s \n", pitch, keySpeed, convert_bits_us2m_s(keySpeed));
       }
       noteOn = false;
     }
@@ -383,31 +383,31 @@ void KeyHammer::printBuffers()
   int delayUS = 15;
   for (int i = 0; i < (int)adcBuffer.size(); ++i)
   {
-    Serial.printf("pitch:%d,", pitch);
+    // Serial.printf("pitch:%d,", pitch);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("noteCount:%d,", noteCount);
+    // Serial.printf("noteCount:%d,", noteCount);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("noteOnHammerSpeed:%f,", lastNoteOnHammerSpeed);
+    // Serial.printf("noteOnHammerSpeed:%f,", lastNoteOnHammerSpeed);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("noteOnVelocity:%d,", lastNoteOnVelocity);
+    // Serial.printf("noteOnVelocity:%d,", lastNoteOnVelocity);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("rawADC:%d,", adcBuffer[i]);
+    // Serial.printf("rawADC:%d,", adcBuffer[i]);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("hammerPosition:%f,", hammerPositionBuffer[i]);
+    // Serial.printf("hammerPosition:%f,", hammerPositionBuffer[i]);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("elapsedUs:%d,", elapsedUSBuffer[i]);
+    // Serial.printf("elapsedUs:%d,", elapsedUSBuffer[i]);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("iteration:%d,", iterationBuffer[i]);
+    // Serial.printf("iteration:%d,", iterationBuffer[i]);
     delayMicroseconds(delayUS);
     Serial.flush();
-    Serial.printf("\n");
+    // Serial.printf("\n");
     delayMicroseconds(delayUS);
     Serial.flush();
   }
@@ -416,22 +416,22 @@ void KeyHammer::printBuffers()
 void KeyHammer::printKeyParams()
 {
   Serial.println("-- SETTINGS --");
-  Serial.printf("pitch: %d\n", pitch);
-  Serial.printf("adcValKeyDown: %d\n", adcValKeyDown);
-  Serial.printf("adcValKeyUp: %d\n", adcValKeyUp);
-  Serial.printf("noteOnThreshold: %d\n", noteOnThreshold);
-  Serial.printf("noteOffThreshold: %d\n", noteOffThreshold);
-  Serial.printf("keyResetThreshold: %d\n", keyResetThreshold);
-  // results from calibration
-  Serial.println("-- CALIBRATION --");
-  Serial.printf("c_up_sample_med: %d \n", c_up_sample_med);
-  Serial.printf("c_up_sample_std: %f \n", c_up_sample_std);
-  Serial.printf("c_down_sample_med: %d \n", c_down_sample_med);
-  Serial.printf("c_down_sample_std: %f \n", c_down_sample_std);
-  Serial.printf("samples collected: %d \n", c_sample_t);
-  Serial.printf("samples used: %d \n", c_sample_n);
-  // updatedKeyDownThreshold
-  Serial.printf("updatedKeyDownThreshold: %d \n", updatedKeyDownThreshold);
+  // Serial.printf("pitch: %d\n", pitch);
+  // Serial.printf("adcValKeyDown: %d\n", adcValKeyDown);
+  // Serial.printf("adcValKeyUp: %d\n", adcValKeyUp);
+  // Serial.printf("noteOnThreshold: %d\n", noteOnThreshold);
+  // Serial.printf("noteOffThreshold: %d\n", noteOffThreshold);
+  // Serial.printf("keyResetThreshold: %d\n", keyResetThreshold);
+  // // results from calibration
+  // Serial.println("-- CALIBRATION --");
+  // Serial.printf("c_up_sample_med: %d \n", c_up_sample_med);
+  // Serial.printf("c_up_sample_std: %f \n", c_up_sample_std);
+  // Serial.printf("c_down_sample_med: %d \n", c_down_sample_med);
+  // Serial.printf("c_down_sample_std: %f \n", c_down_sample_std);
+  // Serial.printf("samples collected: %d \n", c_sample_t);
+  // Serial.printf("samples used: %d \n", c_sample_n);
+  // // updatedKeyDownThreshold
+  // Serial.printf("updatedKeyDownThreshold: %d \n", updatedKeyDownThreshold);
   Serial.flush();
 }
 

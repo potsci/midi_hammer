@@ -2,18 +2,22 @@
 
 // elapsedMillis: https://github.com/pfeerick/elapsedMillis
 #include <elapsedMillis.h>
-#include <SerialCommand.h>
+// #include <SerialCommand.h>
 // for log
 #include <math.h>
-#include <Bounce2.h>
-#include "KeyHammer.h"
-#include "Pedal.h"
 
 #ifndef UNO
-#include "DualAdcManager.h"
+// #include <Bounce2.h>
+#endif
+#include "KeyHammer.h"
+
+#ifndef UNO
+// #include "Pedal.h"
+// #include "DualAdcManager.h"
+// #include "ParamHandler.h"
+
 #endif
 
-// #include "ParamHandler.h"
 // board specific imports and midi setup
 #ifdef PICO
 // pico version uses Earle Philhower's Raspberry Pico Arduino core:
@@ -69,31 +73,31 @@ DualAdcManager dualAdcManager;
 // #endif
 #elif defined(UNO)
 const int analogPin = A0;
-const int addressPinsL[] = {35, 36, 37};
+// const int addressPinsL[] = {35, 36, 37};
 // pins for right muxes
-const int addressPinsR[] = {32, 33, 34};
-const int enablePins[] = {};                                                       // not relevant, since enable pins are tied to ground
-                                                                                   // LU3 LU2 LU1 RU3 RU2 RU1  LM  RM  LD1 LD2 LD3 RD1 RD2 RD3
-const int signalPins[] = {23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 41, 40, 39, 38}; // 39 38 only on A1
+// const int addressPinsR[] = {32, 33, 34};
+// const int enablePins[] = {};                                                       // not relevant, since enable pins are tied to ground
+// LU3 LU2 LU1 RU3 RU2 RU1  LM  RM  LD1 LD2 LD3 RD1 RD2 RD3
+// const int signalPins[] = {23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 41, 40, 39, 38}; // 39 38 only on A1
 // indexes of specific signal pins in signalPins array
 // LU = Left Up, RD = Right Down, LM = Left Middle etc.
-const int SP_LU3 = 0;
-const int SP_LU2 = 1;
-const int SP_LU1 = 2;
-const int SP_RU3 = 3;
-const int SP_RU2 = 4;
-const int SP_RU1 = 5;
-const int SP_LM = 6;
-const int SP_RM = 7;
-const int SP_LD1 = 8;
-const int SP_LD2 = 9;
-const int SP_LD3 = 10;
-const int SP_RD1 = 11;
-const int SP_RD2 = 12;
-const int SP_RD3 = 13;
+// const int SP_LU3 = 0;
+// const int SP_LU2 = 1;
+// const int SP_LU1 = 2;
+// const int SP_RU3 = 3;
+// const int SP_RU2 = 4;
+// const int SP_RU1 = 5;
+// const int SP_LM = 6;
+// const int SP_RM = 7;
+// const int SP_LD1 = 8;
+// const int SP_LD2 = 9;
+// const int SP_LD3 = 10;
+// const int SP_RD1 = 11;
+// const int SP_RD2 = 12;
+// const int SP_RD3 = 13;
 #endif
 
-int nEnable = sizeof(enablePins) / sizeof(enablePins[0]);
+// int nEnable = sizeof(enablePins) / sizeof(enablePins[0]);
 
 // can turn to int like so: int micros = elapsed[i][j];
 // and reset to zero: elapsed[i][j] = 0;
@@ -130,30 +134,34 @@ const float hammer_travel = 7;
 int adcValKeyDown = 560;
 int adcValKeyUp = 450;
 // initialise a ParamHandler object for loading parameters from SD card
+#ifndef UNO
 ParamHandler ph;
+#endif
 
 const int shift = 0;
 const int MIDI_A = 21 + shift;
-// const int MIDI_Bb = 22 + shift;
-// const int MIDI_B = 23 + shift;
-// const int MIDI_C = 24 + shift;
-// const int MIDI_Db = 25 + shift;
-// const int MIDI_D = 26 + shift;
-// const int MIDI_Eb = 27 + shift;
-// const int MIDI_E = 28 + shift;
-// const int MIDI_F = 29 + shift;
-// const int MIDI_Gb = 30 + shift;
-// const int MIDI_G = 31 + shift;
-// const int MIDI_Ab = 32 + shift;
+#ifndef UNO
+const int MIDI_Bb = 22 + shift;
+const int MIDI_B = 23 + shift;
+const int MIDI_C = 24 + shift;
+const int MIDI_Db = 25 + shift;
+const int MIDI_D = 26 + shift;
+const int MIDI_Eb = 27 + shift;
+const int MIDI_E = 28 + shift;
+const int MIDI_F = 29 + shift;
+const int MIDI_Gb = 30 + shift;
+const int MIDI_G = 31 + shift;
+const int MIDI_Ab = 32 + shift;
 
 // mapping of pitch numbers to mux addresses, with A=0
 const int pC2muxAddr[] = {
     6, 4, 7, 3, 1, 0, // A to Eb indexes on left mux
     4, 6, 7, 1, 3, 0  // Eb to Ab indexes on right mux
 }; // 7 resolves to 6, 3 and 1 to 0
+#endif
 
-#include "MidiSenderDummy.h"
-MidiSenderDummy midiSenderDummy;
+// #include "MidiSenderDummy.h" // why is this down here ?
+// MidiSenderDummy midiSenderDummy;
 // choose midisenders for each octave
 MidiSender *midiSenders[1] = {
     &midiSender,
@@ -170,15 +178,15 @@ int settle_delay = 0;
 // the cached value is used since the configuration is the same
 
 // L.B. : 22.02.2026 For NOw I just watn to test the hall sensors with the hammer mechanic, so we need to find a way to skip the complicated ADC Logic for now.
-const int n_keys = 1;
+// const int n_keys = 1;
 // there seems to be something wrong here, the variable seems to be not founda after constructing KeyHammer...
 KeyHammer keys[] = {
     {[]() -> int
      { return analogRead(analogPin); }, midiSenders[0], MIDI_A, adcValKeyDown, adcValKeyUp, hammer_travel, maxHammerSpeed_m_s},
 
-}
+};
 
-// const int n_keys = sizeof(keys) / sizeof(keys[0]);
+const int n_keys = sizeof(keys) / sizeof(keys[0]);
 // L.B. 22.02.2026
 //  lets try to hard code this instead for, now. REMEMBER to FIX this bug later
 // lets' further try to move this to the void setup()
@@ -186,27 +194,28 @@ KeyHammer keys[] = {
 
 int printkey = 0;
 bool printAllKeys = false;
+#ifndef UNO
 
 Bounce2::Button b_toggle_calibration = Bounce2::Button();
 
 SerialCommand sCmd;
-
+#endif
 // help string, printed with "help" command
-const char *helpString = "Commands:\n"
-                         "tc: toggle calibration of thresholds\n"
-                         "ts: save updated thresholds to sd card\n"
-                         "pp: print key parameters (including calibration results)\n"
-                         "pm: change print mode (stream, buffers, notes, none)\n"
-                         "pk: set print key (0-(nKeys-1), +, -)\n"
-                         "pka: toggle print attributes (applicable to stream mode)\n"
-                         "pf: set print frequency (ms)\n"
-                         "h / help: show this message\n";
+// const char *helpString = "Commands:\n"
+//                          "tc: toggle calibration of thresholds\n"
+//                          "ts: save updated thresholds to sd card\n"
+//                          "pp: print key parameters (including calibration results)\n"
+//                          "pm: change print mode (stream, buffers, notes, none)\n"
+//                          "pk: set print key (0-(nKeys-1), +, -)\n"
+//                          "pka: toggle print attributes (applicable to stream mode)\n"
+//                          "pf: set print frequency (ms)\n"
+//                          "h / help: show this message\n";
 
 void printHelp()
 {
-  Serial.print("\n");
-  Serial.println(helpString);
-  pausePrintStream();
+  // Serial.print("\n");
+  // Serial.println(helpString);
+  // pausePrintStream();
 }
 
 void setup()
@@ -234,8 +243,9 @@ void setup()
   // sCmd.setDefaultHandler(unrecognizedCmd);
 
   midiSender.initialize();
+#ifndef UNO
   ph.initialize(n_keys);
-
+#endif
   // load key parameters from SD card
   // for (int i = 0; i < n_keys; i++)
   // {
@@ -277,7 +287,7 @@ void toggleCalibration()
     keys[i].toggleCalibration();
   }
 }
-
+#ifndef UNO
 // function for saving key parameters to SD card
 void saveKeyParams()
 {
@@ -393,7 +403,9 @@ void printKeyParams()
       for (int i = 0; i < n_keys; i++)
       {
         Serial.print("\n");
-        Serial.print("*** KEY %d ***\n", i);
+        // Serial.print("" );
+        // Serial.print("*** KEY***\n", i);
+
         keys[i].printKeyParams();
       }
     }
@@ -473,12 +485,13 @@ void setPrintKey(const char *command)
   else
   {
     Serial.print("\n");
-    Serial.print("printKey = %d (pitch %d), printAllKeys = %d, with printMode = %s\n", printkey, keys[printkey].pitch, printAllKeys, printModeNames[keyPrintMode]);
+    // Serial.print("printKey = %d (pitch %d), printAllKeys = %d, with printMode = %s\n", printkey, keys[printkey].pitch, printAllKeys, printModeNames[keyPrintMode]);
     pausePrintStream();
   }
 }
-
+#endif
 // key attributes for printing
+#ifndef UNO
 enum KeyAttributes
 {
   RAW_ADC = 0,
@@ -573,7 +586,7 @@ void togglePrintAttributes(const char *command)
     Serial.println("Current attribute states:");
     for (int i = 0; i < NUM_ATTRIBUTES; i++)
     {
-      Serial.print("%s (%s): %s\n", keyAttributeNames[i], keyAttributeAbbrev[i], attributeStates[i] ? "enabled" : "disabled");
+      // Serial.print("%s (%s): %s\n", keyAttributeNames[i], keyAttributeAbbrev[i], attributeStates[i] ? "enabled" : "disabled");
     }
     pausePrintStream();
   }
@@ -652,7 +665,7 @@ void unrecognizedCmd(const char *command)
   Serial.print("Type 'help' for a list of commands.\n");
   pausePrintStream();
 }
-
+#endif
 void loop()
 {
   // if ((printInfo) & (printTimerMS > printreqMS) & (serialMsgTimerMS > serialMsgDelay))
@@ -696,7 +709,7 @@ void loop()
     midiSender.loopEnd();
   }
   // check if there are any new commands
-  sCmd.readSerial();
+  // sCmd.readSerial();
 }
 
 // void loop1() {
