@@ -3,7 +3,7 @@
 #include "MidiSenderUno.h"
 // seems like including usb_midi.h is necessary if not in the main .ino file?
 // Otherwise it doesn't know what usbMIDI is
-#include <MIDI.h>
+#include <a.h>
 
 // see here for teensy midi example (and suggested use of 74hc405/1):
 // https://www.pjrc.com/teensy/td_midi.html

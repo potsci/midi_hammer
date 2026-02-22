@@ -8,3 +8,4 @@ circuitPython/adafruit/
 *.lnk
 .ipynb_checkpoints/
 Notes
+.vscode

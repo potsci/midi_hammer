@@ -97,7 +97,7 @@ arduino-cli lib install "CSV Parser"
 ### Important notes (potsci 31.01.2026)
 - The src folder seems to need to be moved to the arduino libaries folder which for me very weirdly is at C:\Users\<USERNAME>\OneDrive\Dokumente\Arduino\libraries
 - Missing detected libraries:
-  - 
+  - ADC.h
 
 
 #### Compilation
