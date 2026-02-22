@@ -1,0 +1,14 @@
+# profiles:
+#   nanouno:
+#     fqbn: arduino:avr:uno
+#     port: /dev/ttyACM0
+#     platforms:
+#       - platform: arduino:avr
+#     libaries:
+#       - "Adafruit_TinyUSB_Library"
+#       - "CSV_Parser"
+#       - "elapsedMillis"
+#       - "MIDI_Library"
+#       - dir: ../src
+
+# default_profile: nanouno
