@@ -348,6 +348,8 @@ void KeyHammer::generateVelocityMap()
 
 void KeyHammer::scaleFilterWeights(float *filter, size_t N)
 {
+  // this function is a bit weird. So the argument passed here is a pointer from the Savatzky Golay filters. However, ther it is a constexpr...
+  //  but if we have an constant input, we cannot update its value.
   float sum = 0;
   // size_t is an unsigned integer type, so use it for i also
   // (but if i never negative, it would be fine anyway)
@@ -359,6 +361,7 @@ void KeyHammer::scaleFilterWeights(float *filter, size_t N)
   {
     filter[i] /= sum;
   }
+  // This looks basically like some normalisation. I still do not understand how this works with constants.
 }
 
 template <typename T, size_t bufferLength>
@@ -366,7 +369,7 @@ float KeyHammer::applyFilter(CircularBuffer<T, bufferLength> &buffer, const floa
 {
   float filteredValue = 0;
   int bufferSize = buffer.size();
-  int startIndex = max(0, bufferSize - filterLength);
+  int startIndex = max(0, bufferSize - (int)filterLength); // might lead to undefined behaviour // overflow possilbe ?
   for (int i = 0; i < filterLength; i++)
   {
     int bufferIndex = startIndex + i;

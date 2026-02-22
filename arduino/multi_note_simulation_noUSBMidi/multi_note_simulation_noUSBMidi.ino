@@ -129,16 +129,16 @@ int testFunction()
 
 // specify constant int value for min_key_press shared across all keys
 const float maxHammerSpeed_m_s = 2.5;
-const float hammer_travel = 7;
+const float hammer_travel = 20;
 // default vals, but will set these during calibration / read in saved calibrated values from SD card
-int adcValKeyDown = 560;
-int adcValKeyUp = 450;
+int adcValKeyDown = 840;
+int adcValKeyUp = 590;
 // initialise a ParamHandler object for loading parameters from SD card
 #ifndef UNO
 ParamHandler ph;
 #endif
 
-const int shift = 0;
+const int shift = 36;
 const int MIDI_A = 21 + shift;
 #ifndef UNO
 const int MIDI_Bb = 22 + shift;
@@ -220,7 +220,7 @@ void printHelp()
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(LED_BUILTIN, OUTPUT);
 
 #ifdef USE_CALIBRATION_BUTTON
